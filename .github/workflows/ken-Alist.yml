@@ -42,7 +42,6 @@ jobs:
           cp -f $GITHUB_WORKSPACE/data/* ./data2
           nohup ./alist server > nohupcmd.out 2>&1 &
           ls ${{github.workspace}}/data2
-          systemctl status alist
         env:
           ALIST_ADMIN_PASSWORD: admin
 
