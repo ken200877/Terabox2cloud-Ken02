@@ -48,6 +48,10 @@ jobs:
         run: |
           curl -v -u 'admin:a6288227' -T 'downloads/ADM-Pro-v14.0.34.apk' http://localhost:5244/dav/Terabox/test/mp3/ADM-Pro-v14.0.34.apk
 
+      - name: 等Alist(大概1/2分钟)
+        run: sleep 30s
+        shell: bash
+          
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
         with:
