@@ -40,7 +40,7 @@ jobs:
           pwd
           mkdir -p ./data2
           cp -f $GITHUB_WORKSPACE/data/* ./data2
-          nohup ./alist server > nohupcmd.out 2>&1 &
+          nohup ./alist server
           ls ${{github.workspace}}/data2
         env:
           ALIST_ADMIN_PASSWORD: admin
