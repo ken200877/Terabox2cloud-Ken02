@@ -49,7 +49,7 @@ jobs:
           curl -v -u 'admin:a6288227' -T 'downloads/Adobe-Acrobat-Pro-2024-v24.2.20759.zip' http://localhost:5244/dav/Terabox/test/mp3/Adobe-Acrobat-Pro-2024-v24.2.20759.zip
 
       - name: 等Alist(大概1/2分钟)
-        run: sleep 30s
+        run: sleep 300s
         shell: bash
           
       - name: Delete workflow runs
