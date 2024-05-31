@@ -1,4 +1,4 @@
-name: 0上传至Alist
+name: 上传至Alist-Terabox
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -26,13 +26,6 @@ jobs:
             sudo apt update
             sudo apt install -y aria2 nodejs curl
 
-      - name: 生成Alist的配置文件
-        id: create-json
-        uses: jsdaniell/create-json@v1.2.2
-        with:
-          name: "config.json"
-          json: ${{ secrets.ALIST_CONFIG }}
-          
       - name: 运行Alist
         run: |
           curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
@@ -42,8 +35,6 @@ jobs:
           cp -f $GITHUB_WORKSPACE/data/* ./data2
           nohup ./alist server > nohupcmd.out 2>&1 &
           ls ${{github.workspace}}/data2
-        env:
-          ALIST_ADMIN_PASSWORD: admin
 
       - name: 等Alist运行起来(大概1/2分钟)
         run: sleep 30s
