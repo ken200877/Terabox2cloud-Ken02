@@ -42,11 +42,11 @@ jobs:
           
       - name: 'Download file'
         run: |
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/ADM-Pro-v14.0.34.apk' -o 'ADM-Pro-v14.0.34.apk' 
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Windows/Adobe%20%E7%B3%BB%E5%88%97/Adobe-Acrobat-Pro-2024-v24.2.20759.zip' -o 'Adobe-Acrobat-Pro-2024-v24.2.20759.zip' 
 
       - name: 上传到Alist
         run: |
-          curl -v -u 'admin:a6288227' -T 'downloads/ADM-Pro-v14.0.34.apk' http://localhost:5244/dav/Terabox/test/mp3/ADM-Pro-v14.0.34.apk
+          curl -v -u 'admin:a6288227' -T 'downloads/Adobe-Acrobat-Pro-2024-v24.2.20759.zip' http://localhost:5244/dav/Terabox/test/mp3/Adobe-Acrobat-Pro-2024-v24.2.20759.zip
 
       - name: 等Alist(大概1/2分钟)
         run: sleep 30s
