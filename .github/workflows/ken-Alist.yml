@@ -40,13 +40,14 @@ jobs:
           pwd
           mkdir -p ./data2
           cp -f $GITHUB_WORKSPACE/data/* ./data2
-          nohup ./alist server
+          nohup ./alist server > nohupcmd.out 2>&1 &
           ls ${{github.workspace}}/data2
+          systemctl status alist
         env:
           ALIST_ADMIN_PASSWORD: admin
 
-      - name: 等Alist运行起来(大概2分钟)
-        run: sleep 120s
+      - name: 等Alist运行起来(大概1/2分钟)
+        run: sleep 30s
         shell: bash
           
       - name: 'Download file'
