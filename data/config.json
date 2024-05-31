@@ -11,7 +11,7 @@
     "user": "",
     "password": "",
     "name": "",
-    "db_file": "C:\\GreenSoft\\Alist.Desktop_Win\\data\\data.db",
+    "db_file": "data/data.db",
     "table_prefix": "x_",
     "ssl_mode": "",
     "dsn": ""
@@ -31,12 +31,12 @@
     "unix_file": "",
     "unix_file_perm": ""
   },
-  "temp_dir": "C:\\GreenSoft\\Alist.Desktop_Win\\data\\temp",
-  "bleve_dir": "C:\\GreenSoft\\Alist.Desktop_Win\\data\\bleve",
+  "temp_dir": "data/temp",
+  "bleve_dir": "data/bleve",
   "dist_dir": "",
   "log": {
     "enable": true,
-    "name": "C:\\GreenSoft\\Alist.Desktop_Win\\data\\log\\log.log",
+    "name": "data/log/log.log",
     "max_size": 50,
     "max_backups": 30,
     "max_age": 28,
