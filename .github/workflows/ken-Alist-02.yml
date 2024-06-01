@@ -8,7 +8,7 @@ on:
         required: true
         default: 'Teraboxdriver'       
 env:
-  DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
+  DOWNLOAD_FILE: "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk"
   
 jobs:
   Teraboxdriver:
@@ -23,9 +23,7 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          curl -fLv 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE' -o '$DOWNLOAD_FILE'
-          env:
-            DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
+          curl -fLv '$DOWNLOAD_FILE' -O
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
