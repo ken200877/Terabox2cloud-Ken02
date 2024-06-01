@@ -23,7 +23,7 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          curl -fLv 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk' -O
+          curl -fLv 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk' -o ./1.apk
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
