@@ -6,8 +6,7 @@ on:
       path:
         description: '下载路径'
         required: true
-        default: 'Teraboxdriver'
-        
+        default: 'Teraboxdriver'       
 env:
   DOWNLOAD_FILE: AquaSoft-Photo-Vision-15.2.03-x64.zip 
 
