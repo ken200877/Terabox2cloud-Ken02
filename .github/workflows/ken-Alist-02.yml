@@ -23,7 +23,7 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          curl -Lv -o ./1.apk '$DOWNLOAD_FILE'
+          curl -Lv -o ./1.apk "$DOWNLOAD_FILE"
       
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
