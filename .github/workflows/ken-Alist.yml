@@ -36,7 +36,9 @@ jobs:
           mkdir -p ./data2
           cp -f $GITHUB_WORKSPACE/data/* ./data2
           nohup ./alist server > nohupcmd.out 2>&1 &
-          ls ${{github.workspace}}/data2
+          sleep 30s
+          cat ./nohupcmd.out
+          ls ${{github.workspace}}/data2 
 
       - name: 等Alist运行起来(大概1/2分钟)
         run: sleep 30s
