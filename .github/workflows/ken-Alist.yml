@@ -36,7 +36,7 @@ jobs:
           mkdir -p ./data2
           cp -f $GITHUB_WORKSPACE/data/* ./data2
           nohup ./alist server > nohupcmd.out 2>&1 &
-          sleep 30s
+          sleep 10s
           cat ./nohupcmd.out
           ls ${{github.workspace}}/data2 
 
@@ -47,7 +47,6 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          sleep 10sDOWNLOAD_FILE
           aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE" 
 
       - name: 上传到Alist
@@ -55,7 +54,7 @@ jobs:
           curl -v -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished02.apk"
 
       - name: 等Alist(大概1/2分钟)
-        run: sleep 30s
+        run: sleep 10s
         shell: bash
           
       - name: Delete workflow runs
