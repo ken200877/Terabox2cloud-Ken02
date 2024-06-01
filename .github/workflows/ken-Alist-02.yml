@@ -15,14 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
-        shell: bash
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-
       - name: Aria2 Install
         run: |
             sudo apt update
@@ -31,10 +23,9 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
+          curl -fLv 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE' -o '$DOWNLOAD_FILE'
           env:
-           DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
-           curl -fLv 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE' -o '$DOWNLOAD_FILE'
-          
+            DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
