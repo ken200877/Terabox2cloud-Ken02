@@ -8,8 +8,8 @@ on:
         required: true
         default: 'Teraboxdriver'       
 env:
-  DOWNLOAD_FILE: AquaSoft-Photo-Vision-15.2.03-x64.zip 
-
+  DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
+  
 jobs:
   Teraboxdriver:
     runs-on: ubuntu-latest
@@ -26,37 +26,12 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl
-
-      - name: 运行Alist
-        run: |
-          curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
-          tar -xzf alist.tar.gz
-          pwd
-          mkdir -p ./data2
-          cp -f $GITHUB_WORKSPACE/data/* ./data2
-          nohup ./alist server > nohupcmd.out 2>&1 &
-          sleep 30s
-          cat ./nohupcmd.out
-          ls ${{github.workspace}}/data2 
-
-      - name: 等Alist运行起来(大概1/2分钟)
-        run: sleep 30s
-        shell: bash
-          
+            sudo apt install -y aria2 nodejs
+            
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          sleep 10s
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk' -o 'CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk' 
-
-      - name: 上传到Alist
-        run: |
-          curl -v -u 'admin:a6288227' -T 'downloads/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk' 'http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk'
-
-      - name: 等Alist(大概1/2分钟)
-        run: sleep 30s
-        shell: bash
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c 'https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE' -o '$DOWNLOAD_FILE' 
           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
