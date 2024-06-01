@@ -51,7 +51,7 @@ jobs:
 
       - name: 上传到Alist
         run: |
-          curl -v -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished02.apk"
+          curl -v -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished03.apk"
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
