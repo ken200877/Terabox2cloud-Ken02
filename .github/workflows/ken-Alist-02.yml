@@ -8,7 +8,7 @@ on:
         required: true
         default: 'Teraboxdriver'       
 env:
-  DOWNLOAD_FILE: CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished.apk
+  DOWNLOAD_FILE: Adobe-Acrobat-Pro-2024-v24.2.20759.zip
   
 jobs:
   Teraboxdriver:
@@ -47,7 +47,7 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Windows/Adobe%20%E7%B3%BB%E5%88%97/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
           
       - name: 上传到Alist
         run: |
