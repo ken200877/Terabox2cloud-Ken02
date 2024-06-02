@@ -26,7 +26,7 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl
+            sudo apt install -y aria2 nodejs curl rclone
 
       - name: 运行Alist
         run: |
@@ -46,12 +46,10 @@ jobs:
           
       - name: 'Download file'
         run: |
-          echo $DOWNLOAD_FILE
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Android/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE" 
-
+          
       - name: 上传到Alist
         run: |
-          curl -v --retry 5 --retry-delay 5 -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished03.apk"
+          rclone config
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
