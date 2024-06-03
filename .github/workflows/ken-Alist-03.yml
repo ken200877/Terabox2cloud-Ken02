@@ -1,0 +1,63 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+env:
+  DOWNLOAD_FILE: Adobe-Acrobat-Pro-2024-v24.2.20759.zip
+  
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
+      - name: Aria2 Install
+        run: |
+            sudo apt update
+            sudo apt install -y aria2 nodejs curl rclone
+
+      - name: 运行Alist
+        run: |
+          curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
+          tar -xzf alist.tar.gz
+          pwd
+          mkdir -p ./data2
+          cp -f $GITHUB_WORKSPACE/data/* ./data2
+          nohup ./alist server > nohupcmd.out 2>&1 &
+          sleep 10s
+          cat ./nohupcmd.out
+          ls ${{github.workspace}}/data2 
+
+      - name: 等Alist运行起来(大概1/2分钟)
+        run: sleep 10s
+        shell: bash
+          
+      - name: 'Download file'
+        run: |
+          echo $DOWNLOAD_FILE
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Windows/Adobe%20%E7%B3%BB%E5%88%97/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
+          
+      - name: 上传到Alist
+        run: |
+          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
+          rclone copy --config "./rclone.conf" "downloads/$DOWNLOAD_FILE" "Alist:Terabox/test/mp3" --retries 30
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
