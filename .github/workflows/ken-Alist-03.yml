@@ -44,15 +44,15 @@ jobs:
         run: sleep 10s
         shell: bash
           
-      - name: 'Download file'
-        run: |
-          echo $DOWNLOAD_FILE
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Windows/Adobe%20%E7%B3%BB%E5%88%97/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
+      #- name: 'Download file'
+      #  run: |
+      #    echo $DOWNLOAD_FILE
+      #    aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD(Onedrive)/Windows/Adobe%20%E7%B3%BB%E5%88%97/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
           
       - name: 上传到Alist
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-          rclone copy --config "./rclone.conf" "downloads/$DOWNLOAD_FILE" "Alist:Terabox/test/mp3" --retries 30
+          rclone copy --config "./rclone.conf" "Alist:Terabox/test/mp3/$DOWNLOAD_FILE" "downloads" --retries 30
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
