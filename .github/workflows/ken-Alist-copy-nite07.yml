@@ -52,7 +52,7 @@ jobs:
       - name: 上传到Alist
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-          rclone copy --config "./rclone.conf" "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Windows" --retries 30
+          rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Windows" --retries 30
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
