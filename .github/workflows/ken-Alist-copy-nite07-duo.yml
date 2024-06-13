@@ -47,7 +47,7 @@ jobs:
       - name: 'Download file and 上传到Alist'
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-          for I in $(cat ./data2/app-list.txt)
+          for I in $(cat ./data2/app-list-02.txt)
           do
             DOWNLOAD_FILE=$(basename $I) 
             echo $DOWNLOAD_FILE
