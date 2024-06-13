@@ -8,7 +8,7 @@ on:
         required: true
         default: 'Teraboxdriver'       
 env:
-  DOWNLOAD_FILE: "%E9%9B%B7%E7%94%B5%E6%A8%A1%E6%8B%9F%E5%99%A8964-v9.0.72-%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%BB%BF%E8%89%B2%E7%89%88.zip"
+  DOWNLOAD_FILE: %E9%9B%B7%E7%94%B5%E6%A8%A1%E6%8B%9F%E5%99%A8964-v9.0.72-%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%BB%BF%E8%89%B2%E7%89%88.zip
   
 jobs:
   Teraboxdriver:
