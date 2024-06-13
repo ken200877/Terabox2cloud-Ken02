@@ -47,7 +47,8 @@ jobs:
       - name: 'Download file'
         run: |
           echo $DOWNLOAD_FILE
-          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "https://www.nite07.com/d/资源下载(Onedrive)/Windows/傲梅(AOMEI) 系列/$DOWNLOAD_FILE" -o "$DOWNLOAD_FILE"
+          I = https://www.nite07.com/d/资源下载(Onedrive)/Windows/傲梅(AOMEI) 系列/AOMEI-Partition-Assistant-10.4.zip
+          aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
           
       - name: 上传到Alist
         run: |
