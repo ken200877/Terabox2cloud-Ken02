@@ -7,8 +7,8 @@ on:
         description: '下载路径'
         required: true
         default: 'Teraboxdriver'       
-env:
-  DOWNLOAD_FILE: 雷电模拟器964-v9.0.72-去广告绿色版.zip
+
+ 
   
 jobs:
   Teraboxdriver:
