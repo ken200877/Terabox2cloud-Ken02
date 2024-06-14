@@ -8,8 +8,6 @@ on:
         required: true
         default: 'Teraboxdriver'       
 
- 
-  
 jobs:
   Teraboxdriver:
     runs-on: ubuntu-latest
@@ -39,21 +37,20 @@ jobs:
           sleep 10s
           cat ./nohupcmd.out
           ls ${{github.workspace}}/data2 
-
-      - name: 等Alist运行起来(大概1/2分钟)
-        run: sleep 10s
-        shell: bash
           
       - name: 'Download file and 上传到Alist'
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
           IFS=$'\n'
-          for I in $(cat ./data2/Apowersoft-list.txt)
-          do
-            DOWNLOAD_FILE=$(basename $I) 
-            echo $DOWNLOAD_FILE
-            aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
-            rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Windows/傲软(Apowersoft)系列" --retries 30
+          for LISTNAME in $(cat ./data2/list.txt)
+            for I in $(cat ./data2/$LISTNAME)
+            do
+              DOWNLOAD_FILE=$(basename $I) 
+              echo $DOWNLOAD_FILE
+              aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
+              rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Windows/$LISTNAME" --retries 30
+              rm -f "downloads/$DOWNLOAD_FILE"
+            done
           done
 
       - name: Delete workflow runs
