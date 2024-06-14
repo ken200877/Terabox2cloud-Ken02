@@ -43,6 +43,7 @@ jobs:
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
           IFS=$'\n'
           for LISTNAME in $(cat ./data2/list.txt)
+          do
             for I in $(cat ./data2/$LISTNAME)
             do
               DOWNLOAD_FILE=$(basename $I) 
