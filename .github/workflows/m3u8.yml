@@ -41,6 +41,7 @@ jobs:
       - name: 'Download file'
         run: |
          curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
+         chmod 777 ./m3u8-downloader
          ./m3u8-downloader --help
        # run: |
         #  curl -v --retry 5 --retry-delay 5 -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished03.apk"
