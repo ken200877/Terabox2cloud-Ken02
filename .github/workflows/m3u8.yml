@@ -21,10 +21,10 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache/CodeQL
 
-      #- name: Aria2 Install
-       # run: |
-        #    sudo apt update
-         #   sudo apt install -y aria2 nodejs curl
+      - name: Aria2 Install
+        run: |
+          sudo apt update
+          sudo apt install -y aria2 nodejs curl
 
       - name: 运行Alist
         run: |
