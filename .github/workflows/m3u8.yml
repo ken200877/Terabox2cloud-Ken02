@@ -43,7 +43,7 @@ jobs:
          curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
          chmod 777 ./m3u8-downloader
          DOWNLOAD_FILE=3.mp4
-         ./m3u8-downloader -u https://861606595.tapecontent.net/radosgw/x3mV2L963vUkWp9/xztUuP_m75ue0smMnG5TruSPJx7ParAz8BxEQMk8KxjUNTsze08YkjEKs_MkXxuOHANG6czFL6FBMYoCERey2QA3_fQvOhAGKHivGH8sb1E7KXy8Obv8MSe-ujgHdHmxbTsgpWqSbk8Sm5zoevz2T7Bb48sL-mLyCEKbgaHnWTIlsG-l1IHYdHuKOntWlTted0aPx39_xiy2fBbkN2MIdLXoqlXV0vHEv0jrGGqSwcVuValq1ib_DosF4dLxXDuyWtLhw-5rRr-mSiAe/FSDSS-761.mp4 -o 3.mp4
+         ./m3u8-downloader -u https://861606595.tapecontent.net/radosgw/x3mV2L963vUkWp9/xztUuP_m75ue0smMnG5TruSPJx7ParAz8BxEQMk8KxjUNTsze08YkjEKs_MkXxuOHANG6czFL6FBMYoCERey2QA3_fQvOhAGKHivGH8sb1E7KXy8Obv8MSe-ujgHdHmxbTsgpWqSbk8Sm5zoevz2T7Bb48sL-mLyCEKbgaHnWTIlsG-l1IHYdHuKOntWlTted0aPx39_xiy2fBbkN2MIdLXoqlXV0vHEv0jrGGqSwcVuValq1ib_DosF4dLxXDuyWtLhw-5rRr-mSiAe/FSDSS-761.mp4 -o 3
        # run: |
         #  curl -v --retry 5 --retry-delay 5 -u 'admin:a6288227' -T "downloads/$DOWNLOAD_FILE" "http://localhost:5244/dav/Terabox/test/CamScanner-PDF-Scanner-App-v6.63.0.2404140000-Clean-youarefinished03.apk"
       
