@@ -54,7 +54,7 @@ jobs:
           
           I=https://861606595.tapecontent.net/radosgw/x3mV2L963vUkWp9/G1W7c6iLQ0Ht0I52xykUOWL5qGX5UKg1Ncln_J5tF3DTzAM4hIhl-ipJZYkiBUdQRW_Sss3TY0Tty0NCiqWW6ZZvZmkAUfw68XhMnSmdASe2zC9gsiVX6z8JQ4wG8EPdIiiKMdrIixNHuCYi9WbC4FBtX0pUNizoozRur6e0y9fxnKLWSLNvNzT7c-bwEpeseAoQP9AEKDZsCVnIzOET6ELekJTCcno1jUDPqu-b-W9ajtYM2IGD-hyW9DlGN6DzXMwZ-bTa7v9UzXUy/a-761.mp4
           #aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
-          curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" -fL -v -o "./downloads/$DOWNLOAD_FILE" "$LINK"
+          curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0" -fL -v -o "./downloads/$DOWNLOAD_FILE" "$LINK"
           
       - name: 上传到Alist
         run: |
