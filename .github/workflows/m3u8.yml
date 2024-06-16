@@ -44,8 +44,10 @@ jobs:
          chmod 777 ./m3u8-downloader
          DOWNLOAD_FILE=3.mp4
          ./m3u8-downloader -u https://zkiann-colans.mushroomtrack.com/hls/WiQz0cFqqerRCMciHCJfhA/1718505937/41000/41199/41199.m3u8 -o 3
+         ls -al
+         ls -l ./3.mp4
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-         rclone copy --config "./rclone.conf" -v "$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
+         rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
