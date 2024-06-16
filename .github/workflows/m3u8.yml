@@ -42,10 +42,11 @@ jobs:
         run: |
          curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
          chmod 777 ./m3u8-downloader
-         DOWNLOAD_FILE=3.mp4
+         DOWNLOAD_FILE=3.db
          ./m3u8-downloader -u https://zizir-alsosn.mushroomtrack.com/hls/GolseVYTjvVSiZ20rD20fg/1718563695/41000/41199/41199.m3u8 -o 3
          ls -al
          ls -l ./3.mp4
+         mv ./3.mp4 ./3.db
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
          rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
 
