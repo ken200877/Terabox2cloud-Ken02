@@ -32,7 +32,7 @@ jobs:
           tar -xzf alist.tar.gz
           pwd
           mkdir -p ./data2
-          cp -f $GITHUB_WORKSPACE/data/* ./data2
+          cp -f $GITHUB_WORKSPACE/data02/* ./data2
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
