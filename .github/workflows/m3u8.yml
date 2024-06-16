@@ -43,7 +43,7 @@ jobs:
          curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
          chmod 777 ./m3u8-downloader
          DOWNLOAD_FILE=3.mp4
-         ./m3u8-downloader -u https://zkiann-colans.mushroomtrack.com/hls/WiQz0cFqqerRCMciHCJfhA/1718505937/41000/41199/41199.m3u8 -o 3
+         ./m3u8-downloader -ht=v2 -u https://zkiann-colans.mushroomtrack.com/hls/WiQz0cFqqerRCMciHCJfhA/1718505937/41000/41199/41199.m3u8 -o 3
          ls -al
          ls -l ./3.mp4
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
