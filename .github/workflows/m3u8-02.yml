@@ -41,8 +41,6 @@ jobs:
         with:
           repo_token: ${{ secrets.PTAKEN }}
           file: ./m3u8-downloader
-          tag: ${{ github.ref }}
-          file_glob: true
           
       - name: Create Release
         id: create_release
@@ -52,9 +50,7 @@ jobs:
         with:
           tag_name: v1.0.1
           release_name: Release v1.0.1
-          draft: false
-          prerelease: false  
-
+     
       - name: Upload single file to Release
         uses: actions/upload-release-asset@v1
         env:
