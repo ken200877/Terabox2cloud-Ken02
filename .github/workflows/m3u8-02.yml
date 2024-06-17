@@ -18,10 +18,10 @@ jobs:
         run: |
          pwd
          ls -al
-         sudo df -h /usr/share/dotnet
-         sudo df -h /usr/local/lib/android
-         sudo df -h /opt/ghc
-         sudo df -h /opt/hostedtoolcache/CodeQL
+         df -h
+         #sudo df -h /usr/share/dotnet
+         #sudo df -h /usr/local/lib/android
+         #sudo df -h /opt/hostedtoolcache/CodeQL
 
 
       - name: Aria2 Install
