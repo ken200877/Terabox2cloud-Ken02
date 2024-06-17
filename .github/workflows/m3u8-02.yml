@@ -36,17 +36,36 @@ jobs:
          mv ./m3u8-downloader ./video/m3u8-downloader.exe
         
 
-      - name: Deliver package
-        uses: actions/upload-artifact@v2
+      - name: Upload release asset
+        if: github.event == 'release'
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: video_package
-          path: ./video
+          repo_token: ${{ secrets.YOURTOKEN }}
+          file: ./video/m3u8-downloader.exe
+          tag: ${{ github.ref }}
+          file_glob: true
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0
+          release_name: Release v1.0.0
+          draft: false
+          prerelease: false  
 
-      - name: Deliver package
-        uses: actions/upload-artifact@v2
+      - name: Upload single file to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: m3u8-downloader.exe
-          path: ./video/m3u8-downloader.exe
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./video/m3u8-downloader.exe
+          asset_name: m3u8-downloader.exe
+          asset_content_type: application/octet-stream  
+
   
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
