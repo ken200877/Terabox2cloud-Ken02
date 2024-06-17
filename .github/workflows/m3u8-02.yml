@@ -1,0 +1,57 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+  
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+         pwd
+         ls -al
+         sudo df -h /usr/share/dotnet
+         sudo df -h /usr/local/lib/android
+         sudo df -h /opt/ghc
+         sudo df -h /opt/hostedtoolcache/CodeQL
+
+
+      - name: Aria2 Install
+        run: |
+          sudo apt update
+          sudo apt install -y curl
+
+      - name: 'Download file and upload to Alist'
+        run: |
+         curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
+         mkdir -p ./video
+         mv ./m3u8-downloader ./video/m3u8-downloader
+        
+
+      - name: Deliver package
+        uses: actions/upload-artifact@v2
+        with:
+          name: video_package
+          path: ./video
+
+      - name: Deliver package
+        uses: actions/upload-artifact@v2
+        with:
+          name: video_file
+          path: ./video/m3u8-downloader
+  
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
