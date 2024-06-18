@@ -41,7 +41,7 @@ jobs:
          chmod 777 ./ffmpeg/ffmpeg
          cd N_m3u8DL-RE
          ./N_m3u8DL-RE -h
-         ./ffmpeg/ffmpeg -h
+         ../ffmpeg/ffmpeg -h
         
 
       - name: Upload release asset
