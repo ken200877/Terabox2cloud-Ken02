@@ -62,7 +62,6 @@ jobs:
          cd download
          mv 33.mp4 33.db
          DOWNLOAD_FILE=33.db
-         cd download
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
          rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
          
