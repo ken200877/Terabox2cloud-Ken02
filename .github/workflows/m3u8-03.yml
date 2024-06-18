@@ -19,9 +19,10 @@ jobs:
          pwd
          ls -al
          df -h
-         #sudo df -h /usr/share/dotnet
-         #sudo df -h /usr/local/lib/android
-         #sudo df -h /opt/hostedtoolcache/CodeQL
+         sudo df -h /usr/share/dotnet
+         sudo df -h /usr/local/lib/android
+         sudo df -h /opt/hostedtoolcache/CodeQL
+         df -h
 
 
       - name: Aria2 Install
@@ -42,6 +43,7 @@ jobs:
          cd N_m3u8DL-RE
          ./N_m3u8DL-RE -h
          ../ffmpeg/ffmpeg -h
+         
         
 
       - name: Upload release asset
