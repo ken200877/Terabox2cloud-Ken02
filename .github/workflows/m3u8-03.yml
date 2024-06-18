@@ -40,9 +40,18 @@ jobs:
          tar -xvf ffmpeg.tar.xz
          mv ffmpeg-7.0.1-amd64-static ffmpeg
          chmod 777 ./ffmpeg/ffmpeg
+         ls -al
+         pwd
+         mkdir -p ./data2
+         cp -f $GITHUB_WORKSPACE/data02/* ./data2
+         mkdir -p ache
+         mkdir -p download
          cd N_m3u8DL-RE
+         cp ../data2/N_m3u8.conf ./
          ./N_m3u8DL-RE -h
          ../ffmpeg/ffmpeg -h
+         ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/TCDcaLLa5_06aA8ArT7JHQ/1718688321/41000/41199/41199.m3u8
+
          
         
 
