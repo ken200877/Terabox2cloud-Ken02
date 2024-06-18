@@ -60,7 +60,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.PTAKEN }}
-          file: ./N_m3u8DL-RE/33.mp4
+          file: ./N_m3u8DL-RE/download/33.mp4
 
   
       - name: Delete workflow runs
