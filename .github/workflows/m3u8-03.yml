@@ -31,9 +31,12 @@ jobs:
 
       - name: 'Download file and upload to Alist'
         run: |
-         curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
-         mkdir -p ./video
-         cp ./m3u8-downloader ./video/m3u8-downloader.exe
+         curl -L -o N_m3u8DL.tar.gz https://github.com/nilaoda/N_m3u8DL-RE/releases/download/v0.2.0-beta/N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
+         tar -zxvf N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
+         mv N_m3u8DL-RE_Beta_linux-x64 N_m3u8DL-RE
+         cd N_m3u8DL-RE
+         chmod 777 N_m3u8DL-RE
+         ./N_m3u8DL-RE -h
         
 
       - name: Upload release asset
