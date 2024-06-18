@@ -19,18 +19,19 @@ jobs:
          pwd
          ls -al
          df -h
-         sudo df -h /usr/share/dotnet
-         sudo df -h /usr/local/lib/android
-         sudo df -h /opt/hostedtoolcache/CodeQL
+         sudo rm -rf /usr/share/dotnet
+         sudo rm -rf /usr/local/lib/android
+         sudo rm -rf /opt/hostedtoolcache/CodeQL
          df -h
 
-
-      - name: Aria2 Install
+   
+      - name: curl Install
         run: |
           sudo apt update
           sudo apt install -y curl
 
-      - name: 'Download file and upload to Alist'
+
+      - name: 'Download file'
         run: |
          curl -L -o N_m3u8DL.tar.gz https://github.com/nilaoda/N_m3u8DL-RE/releases/download/v0.2.0-beta/N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
          tar -zxvf N_m3u8DL.tar.gz
@@ -49,13 +50,10 @@ jobs:
          mkdir -p download
          cp ../data2/N_m3u8.conf ./
          ./N_m3u8DL-RE -h
-         ../ffmpeg/ffmpeg -h
          ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/TCDcaLLa5_06aA8ArT7JHQ/1718688321/41000/41199/41199.m3u8
          ls -al
-         
-         
-        
 
+         
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
