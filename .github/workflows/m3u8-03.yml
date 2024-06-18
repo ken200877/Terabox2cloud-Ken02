@@ -1,0 +1,71 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+  
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+         pwd
+         ls -al
+         df -h
+         #sudo df -h /usr/share/dotnet
+         #sudo df -h /usr/local/lib/android
+         #sudo df -h /opt/hostedtoolcache/CodeQL
+
+
+      - name: Aria2 Install
+        run: |
+          sudo apt update
+          sudo apt install -y curl
+
+      - name: 'Download file and upload to Alist'
+        run: |
+         curl -L -o m3u8-downloader https://github.com/llychao/m3u8-downloader/releases/download/v2.2.3/m3u8-linux-amd64
+         mkdir -p ./video
+         cp ./m3u8-downloader ./video/m3u8-downloader.exe
+        
+
+      - name: Upload release asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.PTAKEN }}
+          file: ./m3u8-downloader
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PTAKEN }}
+        with:
+          tag_name: v1.0.1
+          release_name: Release v1.0.1
+     
+      - name: Upload single file to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PTAKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./video/m3u8-downloader.exe
+          asset_name: m3u8-downloader.exe
+          asset_content_type: application/octet-stream  
+
+  
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
