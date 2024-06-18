@@ -51,6 +51,8 @@ jobs:
          ./N_m3u8DL-RE -h
          ../ffmpeg/ffmpeg -h
          ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/TCDcaLLa5_06aA8ArT7JHQ/1718688321/41000/41199/41199.m3u8
+         ls -al
+         
          
         
 
@@ -58,26 +60,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.PTAKEN }}
-          file: ./m3u8-downloader
-          
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PTAKEN }}
-        with:
-          tag_name: v1.0.1
-          release_name: Release v1.0.1
-     
-      - name: Upload single file to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PTAKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./video/m3u8-downloader.exe
-          asset_name: m3u8-downloader.exe
-          asset_content_type: application/octet-stream  
+          file: ./N_m3u8DL-RE/33.mp4
 
   
       - name: Delete workflow runs
