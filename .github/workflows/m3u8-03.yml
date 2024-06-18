@@ -32,7 +32,7 @@ jobs:
       - name: 'Download file and upload to Alist'
         run: |
          curl -L -o N_m3u8DL.tar.gz https://github.com/nilaoda/N_m3u8DL-RE/releases/download/v0.2.0-beta/N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
-         tar -zxvf N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
+         tar -zxvf N_m3u8DL.tar.gz
          mv N_m3u8DL-RE_Beta_linux-x64 N_m3u8DL-RE
          cd N_m3u8DL-RE
          chmod 777 N_m3u8DL-RE
