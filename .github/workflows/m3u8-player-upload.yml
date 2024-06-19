@@ -1,0 +1,76 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+  
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          df -h
+
+      - name: Aria2 Install
+        run: |
+            sudo apt update
+            sudo apt install -y curl rclone
+
+      - name: 运行Alist
+        run: |
+          curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
+          tar -xzf alist.tar.gz
+          pwd
+          mkdir -p ./data2
+          cp -f $GITHUB_WORKSPACE/data02/* ./data2
+          nohup ./alist server > nohupcmd.out 2>&1 &
+          sleep 10s
+          cat ./nohupcmd.out
+          ls ${{github.workspace}}/data2
+
+      - name: 'Download file and upload to Alist'
+        run: |
+         curl -L -o N_m3u8DL.tar.gz https://github.com/nilaoda/N_m3u8DL-RE/releases/download/v0.2.0-beta/N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
+         tar -zxvf N_m3u8DL.tar.gz
+         mv N_m3u8DL-RE_Beta_linux-x64 N_m3u8DL-RE
+         chmod 777 ./N_m3u8DL-RE/N_m3u8DL-RE
+         curl -L -o ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+         tar -xvf ffmpeg.tar.xz
+         mv ffmpeg-7.0.1-amd64-static ffmpeg
+         chmod 777 ./ffmpeg/ffmpeg
+         ls -al
+         cd N_m3u8DL-RE
+         mkdir -p ache
+         mkdir -p download
+         cp ../data2/N_m3u8.conf ./
+         ./N_m3u8DL-RE -h
+         ../ffmpeg/ffmpeg -h
+         ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/kZY-P2eNLmtCfg_qnEBHcg/1718746312/41000/41199/41199.m3u8
+         ls -al
+         cd download
+         ls -al
+         ../../ffmpeg/ffmpeg -i ./33.mp4
+         mv 33.mp4 33.zip
+         DOWNLOAD_FILE=33.zip
+         echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
+         rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
+         
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
