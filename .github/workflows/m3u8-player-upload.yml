@@ -61,7 +61,7 @@ jobs:
          ls -al
          cd download
          ls -al
-         ../../ffmpeg/ffmpeg -i ./33.mp4
+         ../../ffmpeg/ffmpeg -i ./33.mp4 -f sdl –
          cp 33.mp4 33.zip
          DOWNLOAD_FILE=33.zip
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
