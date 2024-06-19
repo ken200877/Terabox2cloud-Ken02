@@ -62,7 +62,7 @@ jobs:
          cd download
          ls -al
          ../../ffmpeg/ffmpeg -i ./33.mp4
-         mv 33.mp4 33.zip
+         cp 33.mp4 33.zip
          DOWNLOAD_FILE=33.zip
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
          rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
