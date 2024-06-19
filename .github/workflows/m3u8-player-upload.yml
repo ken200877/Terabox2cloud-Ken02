@@ -57,7 +57,7 @@ jobs:
          cp ../data2/N_m3u8.conf ./
          ./N_m3u8DL-RE -h
          ../ffmpeg/ffmpeg -h
-         ./N_m3u8DL-RE @N_m3u8.conf https://zkiann-colans.mushroomtrack.com/hls/mSID0-aNRqscSabgbWbQeA/1718786808/41000/41199/41199.m3u8
+         ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/nLLPcXqwfYh9OQTImN9H-w/1718833797/41000/41199/41199.m3u8
          ls -al
          cd download
          ls -al
