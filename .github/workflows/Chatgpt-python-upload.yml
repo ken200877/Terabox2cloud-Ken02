@@ -1,0 +1,61 @@
+name: Upload File to Terabox
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_url:
+        description: 'URL of the file to download'
+        required: true
+      terabox_api_key:
+        description: 'Terabox API Key'
+        required: true
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install requests library
+      run: |
+        python -m pip install requests
+
+    - name: Download and upload file
+      env:
+        FILE_URL: ${{ github.event.inputs.file_url }}
+        TERABOX_API_KEY: ${{ github.event.inputs.terabox_api_key }}
+      run: |
+        import os
+        import requests
+
+        def download_file(url, file_path):
+            response = requests.get(url)
+            response.raise_for_status()
+            with open(file_path, 'wb') as file:
+                file.write(response.content)
+
+        def upload_to_terabox(file_path, api_key):
+            upload_url = 'https://api.terabox.com/rest/2.0/file/upload'
+            params = {
+                'method': 'upload',
+                'access_token': api_key
+            }
+            with open(file_path, 'rb') as file:
+                files = {'file': file}
+                response = requests.post(upload_url, params=params, files=files)
+            response.raise_for_status()
+            return response.json()
+
+        file_url = os.getenv('FILE_URL')
+        api_key = os.getenv('TERABOX_API_KEY')
+        file_name = file_url.split('/')[-1]
+
+        download_file(file_url, file_name)
+        response = upload_to_terabox(file_name, api_key)
+        print(response)
