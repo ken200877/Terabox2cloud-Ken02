@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
           IFS=$'\n'
-          for LISTNAME in $(cat ./data2/list.txt)
+          for LISTNAME in $(cat ./data2/list02.txt)
           do
             for I in $(cat ./data2/$LISTNAME)
             do
