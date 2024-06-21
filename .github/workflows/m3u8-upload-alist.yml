@@ -43,9 +43,6 @@ jobs:
       - name: 'Download file and upload to Alist'
         run: |
 
-          M3U8_FILE=https://v.imgstream2.com/c/gbkohlkxnt/gbkohlkxnt.m3u8
-          SAVE_NAME=04
-          
           curl -L -o N_m3u8DL.tar.gz https://github.com/nilaoda/N_m3u8DL-RE/releases/download/v0.2.0-beta/N_m3u8DL-RE_Beta_linux-x64_20230628.tar.gz
           tar -zxvf N_m3u8DL.tar.gz
           mv N_m3u8DL-RE_Beta_linux-x64 N_m3u8DL-RE
@@ -57,33 +54,41 @@ jobs:
           ls -al
           cd N_m3u8DL-RE
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-          mkdir -p ache
+          mkdir -p cache
           mkdir -p download
           cp ../data2/N_m3u8.conf ./
           ./N_m3u8DL-RE -h
           ../ffmpeg/ffmpeg -h
-          ./N_m3u8DL-RE @N_m3u8.conf $M3U8_FILE --save-name $SAVE_NAME
-          ls -al ./download
-          FILE_SIZE=$(stat -c%s "./download/$SAVE_NAME.mp4")
-          FILE_SIZE_MB=$((FILE_SIZE / 1024 / 1024))
-          echo "文件大小: $FILE_SIZE_MB MB"
-          if [ "$FILE_SIZE_MB" -gt 800 ]; then
-             echo "文件大于800M，正在分割...."
-             ../ffmpeg/ffmpeg -i ./download/04.mp4 -c copy -map 0 -f segment -segment_time 01:00:00 -reset_timestamps 1 $SAVE_NAME_%02d.mp4
-             ls -al
-             for V in *.mp4
-             do
-               rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+          for M3U8_FILE in $(cat ./data2/m3u8_list.txt); do
+            ./N_m3u8DL-RE @N_m3u8.conf $M3U8_FILE
+            ls -al ./download
+            for M in ./download/*.mp4; do
+                FILE_SIZE=$(stat -c%s "$M")
+                FILE_SIZE_MB=$((FILE_SIZE / 1024 / 1024))
+                echo "文件大小: $FILE_SIZE_MB MB"
+                if [ "$FILE_SIZE_MB" -gt 800 ]; then
+                   echo "文件大于800M，正在分割...."
+                   SAVE_NAME=$(basename $M .${M##*.})
+                   ../ffmpeg/ffmpeg -i $M -c copy -map 0 -f segment -segment_time 01:00:00 -reset_timestamps 1 $SAVE_NAME_%02d.mp4
+                   rm $M
+                   ls -al
+                   for V in *.mp4
+                   do
+                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+                     rm $V
+                   done
+                else
+                   echo "文件小于或等于800M，直接上传..."
+                   ls -al
+                   for V in ./download/*.mp4
+                   do
+                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+                     rm $V
+                   done
+                fi
              done
-          else
-             echo "文件小于或等于800M，直接上传..."
-             ls -al
-             for V in ./download/*.mp4
-             do
-               rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
-             done
-          fi
-                  
+           done
+           
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
         with:
