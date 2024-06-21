@@ -57,13 +57,13 @@ jobs:
          cp ../data2/N_m3u8.conf ./
          ./N_m3u8DL-RE -h
          ../ffmpeg/ffmpeg -h
-         ./N_m3u8DL-RE @N_m3u8.conf https://zizir-alsosn.mushroomtrack.com/hls/kZY-P2eNLmtCfg_qnEBHcg/1718746312/41000/41199/41199.m3u8
+         ./N_m3u8DL-RE @N_m3u8.conf https://v.imgstream2.com/c/gbkohlkxnt/gbkohlkxnt.m3u8
          ls -al
-         cd download
-         mv 33.mp4 33.zip
+         ../ffmpeg/ffmpeg -i ./download/04.mp4 -c copy -map 0 -f segment -segment_time 00:30:00 -reset_timestamps 1 04%02d.mp4
          DOWNLOAD_FILE=33.zip
+         ls -al
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-         rclone copy --config "./rclone.conf" -v "./$DOWNLOAD_FILE" "Alist:Terabox(200885/Vedio" --retries 30
+         rclone copy --config "./rclone.conf" -v "./*.mp4" "Alist:Terabox(200885/Vedio" --retries 30
          
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
