@@ -74,6 +74,7 @@ jobs:
              for V in *.mp4
              do
                rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+             done
           else
              echo "文件小于或等于800M，直接上传..."
              ls -al
