@@ -58,8 +58,7 @@ jobs:
           cp ../data2/N_m3u8.conf ./
           ./N_m3u8DL-RE -h
           IFS=$'\n'
-          for M3U8FILE in $(cat ./data2/m3u8_list.txt)
-          do
+          for M3U8FILE in $(cat ../data2/m3u8_list.txt); do
             ./N_m3u8DL-RE @N_m3u8.conf $M3U8FILE
             ls -al ./download
             for M in ./download/*.mp4; do
