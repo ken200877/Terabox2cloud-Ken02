@@ -58,7 +58,7 @@ jobs:
           mkdir -p download
           cp ../data2/N_m3u8.conf ./
           ./N_m3u8DL-RE -h
-          ../ffmpeg/ffmpeg -h
+          IFS=$'\n'
           for M3U8_FILE in $(cat ./data2/m3u8_list.txt); do
             ./N_m3u8DL-RE @N_m3u8.conf $M3U8_FILE
             ls -al ./download
