@@ -63,7 +63,10 @@ jobs:
          #DOWNLOAD_FILE=33.zip
          ls -al
          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
-         rclone copy --config "./rclone.conf" -v "./*.mp4" "Alist:Terabox(200885/Vedio" --retries 30
+         for V in *.mp4
+         do
+           rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+         done
          
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v1.2.3
