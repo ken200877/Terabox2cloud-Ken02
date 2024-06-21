@@ -1,0 +1,9 @@
+按固定时间间隔分割：
+使用 -segment_time 参数将视频按固定的时间间隔分割成多个片段。
+
+ffmpeg -i input.mp4 -c copy -map 0 -segment_time 00:01:00 -f segment output%03d.mp4
+
+基本剪辑命令：
+使用 -ss 参数指定起始时间，使用 -to 参数指定结束时间，或者使用 -t 参数指定持续时间。
+复制代码
+ffmpeg -i input.mp4 -ss 00:00:10 -to 00:00:20 -c copy output.mp4
