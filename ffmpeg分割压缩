@@ -1,0 +1,49 @@
+按固定时间间隔分割：
+使用 -segment_time 参数将视频按固定的时间间隔分割成多个片段。
+ffmpeg -i video.mp4 -c copy -map 0 -f segment -segment_time 00:01:00 -reset_timestamps 1 output%03d.mp4
+
+# 下载视频
+./N_m3u8DL-RE -u "$VIDEO_URL" -o video.mp4
+
+# 分割视频，每段1分钟
+ffmpeg -i video.mp4 -c copy -map 0 -f segment -segment_time 00:01:00 -reset_timestamps 1 output%03d.mp4
+
+基本剪辑命令：
+使用 -ss 参数指定起始时间，使用 -to 参数指定结束时间，或者使用 -t 参数指定持续时间。
+复制代码
+ffmpeg -i input.mp4 -ss 00:00:10 -to 00:00:20 -c copy output.mp4
+
+
+
+
+解决
+针对以上问题，我的解决思路如下：
+1、手机播放端一般不需要这么高分辨率，降低720p；
+2、帧率30fps也可以适当降低，降低到22～25都可以；
+3、码率压缩，选用-crf固定码率比压缩/-b:v最高码率压缩方式都可以;
+4、视频编码h264(main)可以调整到h264(high);
+
+
+以上4个参数配置压缩命令如下：
+ffmpeg -y -i xx.mp4 -c:a copy  -c:v libx264 -profile:v high -r 30 -crf 30 -s 720x1080  xx-out.mp4
+
+简单介绍参数：
+-y:表示输出文件覆盖
+-i:表示输入文件
+-c:a:表示音频部分编码，copy表示直接复制到新文件
+-c:v:表示视频部分编码，libx264表示使用h264编码
+-profile:v:h264编码参数，使用更紧凑的压缩算法
+-r:表示视频帧率，30fps
+-crf:表示码率应用固定码率比，从0～500，越大码率越低，一般18～32效果较好
+-s:视频分辨率裁剪，720x1080表示裁剪成720p
+
+具体的ffmpeg命令如下：
+-movflags +faststart
+在上述命令中增加以上参数即可。最终命令如下：
+ffmpeg -y -i xx.mp4 -c:a copy  -c:v libx264 -profile:v high -r 30 -crf 30 -s 720x1080 -movflags +faststart xx-out.mp4
+
+作者：_欧阳绍聪_
+链接：https://juejin.cn/post/7183903416517820477
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
