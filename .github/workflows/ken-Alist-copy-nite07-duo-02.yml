@@ -17,7 +17,7 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl rclone gnupg2 gpg-agent
+            sudo apt install -y aria2 nodejs curl rclone gnupg gpg-agent
       - name: 运行Alist
         run: |
           curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
@@ -25,12 +25,17 @@ jobs:
           pwd
           mkdir -p ./data
           cp -f $GITHUB_WORKSPACE/data02/* ./data
-          echo "${{ secrets.PRIVATE_KEY }}" > private.key
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
           echo "use-agent" >> ~/.gnupg/gpg.conf
-          gpg2 --import private.key
-          gpg2 --batch --yes --pinentry-mode loopback -o ./data/data.db -d ./data/data.db.gpg
+          echo "use-agent" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
+          echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+          echo "$PRIVATE_KEY" | gpg --batch --yes --pinentry-mode loopback --import
+
+          gpg --import private.key
+          gpg --batch --yes --pinentry-mode loopback -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
