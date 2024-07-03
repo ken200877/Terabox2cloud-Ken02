@@ -37,7 +37,6 @@ jobs:
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
           echo "use-agent" >> ~/.gnupg/gpg.conf
-          gpg-agent --daemon
           gpg --import private.key
           gpg --batch --yes --pinentry-mode loopback -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
