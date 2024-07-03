@@ -24,27 +24,30 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl rclone
+            sudo apt install -y aria2 nodejs curl rclone gnupg2
 
       - name: 运行Alist
         run: |
           curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
           tar -xzf alist.tar.gz
           pwd
-          mkdir -p ./data2
-          cp -f $GITHUB_WORKSPACE/data02/* ./data2
+          mkdir -p ./data
+          cp -f $GITHUB_WORKSPACE/data02/* ./data
+          echo "${{ secrets.PRIVATE_KEY }}" > private.key
+          gpg2 --import private.key
+          gpg2 -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
-          ls ${{github.workspace}}/data2 
+          ls ${{github.workspace}}/data 
           
       - name: 'Download file and 上传到Alist'
         run: |
           echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
           IFS=$'\n'
-          for LISTNAME in $(cat ./data2/list02.txt)
+          for LISTNAME in $(cat ./data/list02.txt)
           do
-            for I in $(cat ./data2/$LISTNAME)
+            for I in $(cat ./data/$LISTNAME)
             do
               DOWNLOAD_FILE=$(basename $I) 
               echo $DOWNLOAD_FILE
