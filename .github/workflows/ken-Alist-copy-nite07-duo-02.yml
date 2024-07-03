@@ -52,7 +52,7 @@ jobs:
               DOWNLOAD_FILE=$(basename $I) 
               echo $DOWNLOAD_FILE
               aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
-              rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Android/$LISTNAME" --retries 30
+              rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(海外百度)(200885/Nite07/Android/$LISTNAME" --retries 30
               rm -f "downloads/$DOWNLOAD_FILE"
             done
           done
