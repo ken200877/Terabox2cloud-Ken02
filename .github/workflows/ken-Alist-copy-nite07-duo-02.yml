@@ -25,7 +25,7 @@ jobs:
           pwd
           mkdir -p ./data
           cp -f $GITHUB_WORKSPACE/data02/* ./data
-          #mkdir -p ~/.gnupg
+          mkdir -p ~/.gnupg
           #chmod 700 ~/.gnupg
           echo "use-agent" >> ~/.gnupg/gpg.conf
           #echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
