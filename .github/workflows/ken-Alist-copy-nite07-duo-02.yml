@@ -13,14 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
-        shell: bash
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-
+      
       - name: Aria2 Install
         run: |
             sudo apt update
