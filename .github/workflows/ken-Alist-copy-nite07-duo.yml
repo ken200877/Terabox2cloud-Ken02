@@ -39,8 +39,8 @@ jobs:
           echo "use-agent" >> ~/.gnupg/gpg.conf
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           gpg --version
-          gpg --import private.key
-          gpg -o ./data/data.db -d ./data/data.db.gpg
+          gpg --batch --import private.key
+          gpg --batch --yes --pinentry-mode loopback -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
