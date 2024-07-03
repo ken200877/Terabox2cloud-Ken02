@@ -24,7 +24,7 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl rclone gnupg2
+            sudo apt install -y aria2 nodejs curl rclone gnupg
 
       - name: 运行Alist
         run: |
@@ -34,8 +34,8 @@ jobs:
           mkdir -p ./data
           cp -f $GITHUB_WORKSPACE/data02/* ./data
           echo "${{ secrets.PRIVATE_KEY }}" > private.key
-          gpg2 --import private.key
-          gpg2 -o ./data/data.db -d ./data/data.db.gpg
+          gpg --import private.key
+          gpg -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
