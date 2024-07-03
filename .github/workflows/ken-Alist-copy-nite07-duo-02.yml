@@ -34,7 +34,7 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" | gpg --batch --yes --pinentry-mode loopback --import
           echo "${{ secrets.PRIVATE_KEY }}" > private-key
           gpg --list-packets private-key
-          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" -o ./data/data.db -d ./data/data.db.gpg
+          #gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" -o ./data/data.db -d ./data/data.db.gpg
           ls -al ${{github.workspace}}/data
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
