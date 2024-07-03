@@ -24,8 +24,8 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y aria2 nodejs curl rclone gnupg
-
+            sudo apt install -y aria2 nodejs curl rclone gnupg gpg-agent gnupg2
+            sudo apt search gnupg
       - name: 运行Alist
         run: |
           curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
@@ -34,6 +34,10 @@ jobs:
           mkdir -p ./data
           cp -f $GITHUB_WORKSPACE/data02/* ./data
           echo "${{ secrets.PRIVATE_KEY }}" > private.key
+          type gpg
+          type gpg2
+          gpg2 --version
+          gpg --version
           gpg --import private.key
           gpg -o ./data/data.db -d ./data/data.db.gpg
           nohup ./alist server > nohupcmd.out 2>&1 &
