@@ -1,0 +1,69 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 增加可用空间 (删除dotnet, android、haskell、CodeQL)
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
+      - name: Aria2 Install
+        run: |
+            sudo apt update
+            sudo apt install -y aria2 nodejs curl rclone gnupg gpg-agent
+            sudo apt search gnupg
+      - name: 运行Alist
+        run: |
+          curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
+          tar -xzf alist.tar.gz
+          pwd
+          mkdir -p ./data
+          cp -f $GITHUB_WORKSPACE/data02/* ./data
+          echo "${{ secrets.PRIVATE_KEY }}" > private.key
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "use-agent" >> ~/.gnupg/gpg.conf
+          gpg --import private.key
+          gpg --batch --yes --pinentry-mode loopback -o ./data/data.db -d ./data/data.db.gpg
+          nohup ./alist server > nohupcmd.out 2>&1 &
+          sleep 10s
+          cat ./nohupcmd.out
+          ls ${{github.workspace}}/data 
+          
+      - name: 'Download file and 上传到Alist'
+        run: |
+          echo "${{ secrets.RCLONE_CONF }}" > ./rclone.conf
+          IFS=$'\n'
+          for LISTNAME in $(cat ./data/list02.txt)
+          do
+            for I in $(cat ./data/$LISTNAME)
+            do
+              DOWNLOAD_FILE=$(basename $I) 
+              echo $DOWNLOAD_FILE
+              aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
+              rclone copy --config "./rclone.conf" -v "downloads/$DOWNLOAD_FILE" "Alist:Terabox(200885/Nite07/Android/$LISTNAME" --retries 30
+              rm -f "downloads/$DOWNLOAD_FILE"
+            done
+          done
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
