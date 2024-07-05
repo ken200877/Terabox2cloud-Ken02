@@ -1,0 +1,43 @@
+name: 上传至Alist-Terabox
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载路径'
+        required: true
+        default: 'Teraboxdriver'       
+  
+jobs:
+  Teraboxdriver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+     
+
+      - name: Aria2 Install
+        run: |
+            sudo apt update
+            sudo apt install -y python pip
+            sudo pip install yt-dlp
+
+            cp -f $GITHUB_WORKSPACE/data02/* ./data
+            IFS=$'\n'
+            for I in $(cat ./data/not-m3u8_list.txt); do
+                DOWNLOAD_FILE=$(basename $I) 
+                echo $DOWNLOAD_FILE
+                mkdir -p downloads
+                yt-dlp -h
+                yt-dlp "$I"
+            done
+            ls -al ./downloads
+            ls -al
+
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v1.2.3
+        with:
+          token: ${{ secrets.PTAKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
