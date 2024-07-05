@@ -66,7 +66,7 @@ jobs:
             DOWNLOAD_FILE=$(basename $I) 
             echo $DOWNLOAD_FILE
             #aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
-            aria2c --user-agent="Mozilla/5.0" --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
+            aria2c -d downloads -c "$I" -o "$DOWNLOAD_FILE"
             ls -al ./downloads
             for M in ./downloads/*.mp4; do
                 FILE_SIZE=$(stat -c%s "$M")
