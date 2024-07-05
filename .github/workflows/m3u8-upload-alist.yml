@@ -26,20 +26,29 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y curl rclone
-
+            sudo apt install -y aria2 curl rclone gnupg gpg-agent
+            
       - name: 运行Alist
         run: |
           curl -L -o alist.tar.gz https://github.com/alist-org/alist/releases/download/v3.30.0/alist-linux-amd64.tar.gz
           tar -xzf alist.tar.gz
           pwd
-          mkdir -p ./data2
-          cp -f $GITHUB_WORKSPACE/data02/* ./data2
+          mkdir -p ./data
+          cp -f $GITHUB_WORKSPACE/data02/* ./data
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          echo "use-agent" >> ~/.gnupg/gpg.conf
+          echo "${{ secrets.PRIVATE_KEY }}" | gpg --batch --import
+          echo "${{ secrets.PRIVATE_KEY }}" > private-key
+          #gpg --batch --import private-key
+          gpg --list-packets private-key
+          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" -o ./data/data.db -d ./data/data.db.gpg
+          ls -al ${{github.workspace}}/data
           nohup ./alist server > nohupcmd.out 2>&1 &
           sleep 10s
           cat ./nohupcmd.out
-          ls ${{github.workspace}}/data2
-
+          ls -al ${{github.workspace}}/data
+          
       - name: 'Download file and upload to Alist'
         run: |
 
@@ -73,7 +82,7 @@ jobs:
                    ls -al
                    for V in *.mp4
                    do
-                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(海外百度)(200885/Vedio" --retries 30
                      rm $V
                    done
                 else
@@ -81,7 +90,7 @@ jobs:
                    ls -al
                    for V in ./download/*.mp4
                    do
-                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(200885/Vedio" --retries 30
+                     rclone copy --config "./rclone.conf" -v "$V" "Alist:Terabox(海外百度)(200885/Vedio" --retries 30
                      rm $V
                    done
                 fi
