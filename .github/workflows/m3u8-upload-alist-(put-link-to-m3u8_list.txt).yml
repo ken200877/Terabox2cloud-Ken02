@@ -58,7 +58,8 @@ jobs:
           chmod 777 ./N_m3u8DL-RE/N_m3u8DL-RE
           curl -L -o ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
           tar -xvf ffmpeg.tar.xz
-          mv ffmpeg-7.0.1-amd64-static ffmpeg
+          #mv ffmpeg-7.0.1-amd64-static ffmpeg
+          mv ffmpeg-*-amd64-static ffmpeg
           chmod 777 ./ffmpeg/ffmpeg
           ls -al
           cd N_m3u8DL-RE
