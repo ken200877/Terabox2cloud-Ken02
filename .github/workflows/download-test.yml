@@ -18,7 +18,7 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y wget
+            sudo apt install -y ffmpeg
             #sudo pip install streamlink
 
             mkdir -p ./data
@@ -28,7 +28,8 @@ jobs:
                 DOWNLOAD_FILE=$(basename $I) 
                 echo $DOWNLOAD_FILE
                 mkdir -p downloads
-                wget "$I"
+                ffmpeg -i "I" -c copy output.mp4
+
             done   
             ls -al ./downloads
             ls -al
