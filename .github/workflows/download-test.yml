@@ -28,7 +28,7 @@ jobs:
                 echo $DOWNLOAD_FILE
                 mkdir -p downloads
                 youtube-dl -h
-                youtube-dl "$I"
+                youtube-dl https://861606595.tapecontent.net/radosgw/x3mV2L963vUkWp9/hOzcR46IJxeohgFzoSnXMOBT4JiwX535rRY3GmTPMCZi8re1qA4CGUAW9s9yeUXZwHeD0vL9EUQ-korhNlKw141crIE4l4_3M9SGS5mItNVl2F2HEi2ko8uO4Sx07jKPOfdlh8jVNTRQjzXVp6Sin6MF6qeYOGlPoNuXXC4zy2Hdv2iz2BS2F9RZwIGy4VsySN2bExAeYig8vGKxeLrRtrSOboMvUSkEy49dH8XmqyirxdEl7iLj0Q8XNmUskltqGiFzTuYXkg-fVbb8/FSDSS-761.mp4
             done   
             ls -al ./downloads
             ls -al
