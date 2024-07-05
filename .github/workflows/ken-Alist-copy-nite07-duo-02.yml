@@ -32,9 +32,8 @@ jobs:
           #echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
           #echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
           echo "${{ secrets.PRIVATE_KEY }}" | gpg --batch --import
-          echo "${{ secrets.PRIVATE_KEY }}" > private-key.gpg
-          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" -o private.key --decrypt private-key.gpg
-          #gpg --batch --import private-key.gpg
+          echo "${{ secrets.PRIVATE_KEY }}" > private-key
+          #gpg --batch --import private-key
           gpg --list-packets private-key
           gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.PASSPHRASE }}" -o ./data/data.db -d ./data/data.db.gpg
           ls -al ${{github.workspace}}/data
