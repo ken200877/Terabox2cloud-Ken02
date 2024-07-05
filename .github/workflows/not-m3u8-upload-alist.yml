@@ -67,7 +67,7 @@ jobs:
             echo $DOWNLOAD_FILE
             #aria2c --conf $GITHUB_WORKSPACE/aria2.conf --seed-time=0 -d downloads -c "$I" -o "$DOWNLOAD_FILE"
             mkdir -p downloads
-            curl -L -o "./downloads/$DOWNLOAD_FILE" "$I"
+            curl -fL -o "./downloads/$DOWNLOAD_FILE" "$I"
             ls -al ./downloads
             for M in ./downloads/*.mp4; do
                 FILE_SIZE=$(stat -c%s "$M")
