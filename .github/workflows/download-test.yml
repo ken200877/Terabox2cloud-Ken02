@@ -18,9 +18,9 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y python2 pip
+            sudo apt install -y
             sudo pip install yt-dlp
-
+            mkdir -p ./data
             cp -f $GITHUB_WORKSPACE/data02/* ./data
             IFS=$'\n'
             for I in $(cat ./data/not-m3u8_list.txt); do
