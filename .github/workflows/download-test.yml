@@ -28,7 +28,7 @@ jobs:
                 DOWNLOAD_FILE=$(basename $I) 
                 echo $DOWNLOAD_FILE
                 mkdir -p downloads
-                ffmpeg -i "I" -c copy output.mp4
+                ffmpeg -i "$I" -c copy output.mp4
 
             done   
             ls -al ./downloads
