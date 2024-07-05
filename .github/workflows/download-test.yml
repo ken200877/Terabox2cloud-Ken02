@@ -18,8 +18,8 @@ jobs:
       - name: Aria2 Install
         run: |
             sudo apt update
-            sudo apt install -y
-            sudo pip install streamlink
+            sudo apt install -y wget
+            #sudo pip install streamlink
 
             mkdir -p ./data
             cp -f $GITHUB_WORKSPACE/data02/* ./data
@@ -28,7 +28,7 @@ jobs:
                 DOWNLOAD_FILE=$(basename $I) 
                 echo $DOWNLOAD_FILE
                 mkdir -p downloads
-                streamlink "$I" best -o output.mp4
+                wget "$I"
             done   
             ls -al ./downloads
             ls -al
