@@ -29,6 +29,7 @@ jobs:
                 mkdir -p downloads
                 youtube-dl -h
                 youtube-dl "$I"
+            done   
             ls -al ./downloads
             ls -al
 
