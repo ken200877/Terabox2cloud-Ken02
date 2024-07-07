@@ -28,7 +28,9 @@ jobs:
         cd ..
         ls -al ./tmp
         ls -al
-        mv ./tmp/* ./1.mp4
+        mv ./tmp/* ./tmp/1.mp4
+        ls -al ./tmp
+        
         
 
     - name: Upload release asset
