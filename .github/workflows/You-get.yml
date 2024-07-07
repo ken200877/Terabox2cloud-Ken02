@@ -1,4 +1,4 @@
-name: CI
+names: CI
 
 
 on:
@@ -27,6 +27,8 @@ jobs:
         cd tmp
         you-get https://www.youtube.com/watch?v=Xk0Jc1rXf78
         cd ..
+        ls -al ./tmp
+        ls -al
 
     - name: Upload release asset
       uses: svenstaro/upload-release-action@v2
