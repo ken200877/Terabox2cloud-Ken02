@@ -28,7 +28,7 @@ jobs:
         cd ..
         ls -al ./tmp
         ls -al
-        mv ./tmp/* ./tmp/nana.mp4
+        mv ./tmp/*.mp4 ./tmp/nana.mp4
         ls -al ./tmp
         
         
