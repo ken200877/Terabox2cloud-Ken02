@@ -35,6 +35,6 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
           repo_token: ${{ secrets.PTAKEN }}
-          file: ./tmp/1.mp4
+          file: $GITHUB_WORKSPACE/tmp/1.mp4
     
  
