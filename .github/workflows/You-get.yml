@@ -36,6 +36,7 @@ jobs:
     - name: Upload release asset
       run: |
          pwd
+         ls -al $GITHUB_WORKSPACE
         
     - uses: svenstaro/upload-release-action@v2
       with:
