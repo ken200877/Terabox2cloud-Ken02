@@ -28,11 +28,13 @@ jobs:
         cd ..
         ls -al ./tmp
         ls -al
+        mv ./tmp/* ./1.mp4
+        
 
     - name: Upload release asset
       uses: svenstaro/upload-release-action@v2
       with:
           repo_token: ${{ secrets.PTAKEN }}
-          file: ./tmp/*
+          file: ./tmp/1.mp4
     
  
