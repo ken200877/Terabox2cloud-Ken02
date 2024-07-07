@@ -24,7 +24,7 @@ jobs:
         pip install you-get
         mkdir tmp
         cd tmp
-        you-get https://2475154810.tapecontent.net/radosgw/AXzQbboQ7phGW0/kWcC8ai-BaUQL1LqxLAircWVYuyENFc70o6K6P_Sfc0m-L-8oddFjtRPaNSfNjBbCTdepXC5d1vd5apRtBl73bSEpB_bIQYgHbamFh8mJqmubz53dnGwl3XbkB_oU7gXDl8ycYOyaaJ6zK7y282IA9oNdB_gkaonygv_Owz_txAyrVrtP_DNh62itHEN_H8oiKsHqOR2QHktiXAXlJXRB-C-7xbtosX6dLU-YjpcFlNXXzoTogoYvpEqrPoH3ZA945QHPgeql-_hIVuYRffsCaVe32gTZ7QkYJFsSw/H4610-ki240706-1080p.mp4
+        you-get https://youtu.be/j2kWUcbOxWY?si=n68TzxDycFAbz_aG
         cd ..
         ls -al ./tmp
         ls -al
