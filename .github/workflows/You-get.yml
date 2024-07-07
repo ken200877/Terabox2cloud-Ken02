@@ -1,5 +1,4 @@
-names: CI
-
+name: CI
 
 on:
   repository_dispatch:
