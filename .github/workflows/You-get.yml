@@ -32,7 +32,10 @@ jobs:
         
 
     - name: Upload release asset
-      uses: svenstaro/upload-release-action@v2
+    - run: |
+         pwd
+        
+    - uses: svenstaro/upload-release-action@v2
       with:
           repo_token: ${{ secrets.PTAKEN }}
           file: $GITHUB_WORKSPACE/tmp/1.mp4
