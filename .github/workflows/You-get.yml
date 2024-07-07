@@ -1,7 +1,15 @@
 name: CI
 
-on: [push]
 
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: '下载'
+        required: true
+        default: 'you-got'
+        
 jobs:
   build:
 
@@ -12,16 +20,18 @@ jobs:
       with:
         python-version: '3.10.14' # Version range or exact version of a Python version to use, using SemVer's version range syntax
         architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+      
     - run:  |
         pip install you-get
         mkdir tmp
         cd tmp
         you-get https://www.youtube.com/watch?v=Xk0Jc1rXf78
         cd ..
-    - name: Release
-      uses: softprops/action-gh-release@v1
+
+    - name: Upload release asset
+      uses: svenstaro/upload-release-action@v2
       with:
-        files: ./tmp/*
-      env:
-        GITHUB_TOKEN: ${{ secrets.PTAKEN }}
+          repo_token: ${{ secrets.PTAKEN }}
+          file: ./tmp/*
+    
  
